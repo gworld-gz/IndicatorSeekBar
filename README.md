@@ -1,15 +1,13 @@
 # IndicatorSeekBar
 
-[![DOWNLOAD](https://api.bintray.com/packages/warkiz/maven/indicatorseekbar/images/download.svg)](https://bintray.com/warkiz/maven/indicatorseekbar/_latestVersion)
-[![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14)
-[![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-IndicatorSeekBar-green.svg?style=flat )]( https://android-arsenal.com/details/1/6434 )
+[![DOWNLOAD](https://www.jitpack.io/v/gworld-gz/IndicatorSeekBar.svg)](https://www.jitpack.io/#gworld-gz/IndicatorSeekBar/Tag)
 
 This is a customizable SeekBar library on Android. Also, If you don't need indicator and want to show tick texts to top of seek bar, please see [the other library](https://github.com/warkiz/TickSeekBar).
 
-[ 中文.md ](https://github.com/warkiz/IndicatorSeekBar/blob/master/README_zh.md)
-
+[ 中文.md ]( https://github.com/gworld-gz/IndicatorSeekBar/blob/master/README_zh.md )
 
 ## Overview
+
 <img src="https://github.com/warkiz/IndicatorSeekBar/blob/master/gif/overview.png?raw=true" width = "392" height = "115"/>
 
 ## Screenshot
@@ -22,11 +20,10 @@ This is a customizable SeekBar library on Android. Also, If you don't need indic
  Scan QR code to download:
 <img src="https://github.com/warkiz/IndicatorSeekBar/blob/master/gif/downloadQRcode.png?raw=true" width = "100" height = "100"/>
 
-
 ## Setup
 
 ```gradle
-implementation 'com.github.warkiz.widget:indicatorseekbar:2.1.2'
+ implementation 'com.github.gworld-gz:IndicatorSeekBar:v3.0.0'
 ```
 
 ## Usage

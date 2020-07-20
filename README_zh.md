@@ -1,11 +1,8 @@
 # IndicatorSeekBar
 
-[![DOWNLOAD](https://api.bintray.com/packages/warkiz/maven/indicatorseekbar/images/download.svg)](https://bintray.com/warkiz/maven/indicatorseekbar/_latestVersion)
-[![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14)
-[![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-IndicatorSeekBar-green.svg?style=flat )]( https://android-arsenal.com/details/1/6434 )
+[![DOWNLOAD](https://www.jitpack.io/v/gworld-gz/IndicatorSeekBar.svg)](https://www.jitpack.io/#gworld-gz/IndicatorSeekBar/Tag)
 
-这是一个安卓自定义SeekBar库。 另外, 如果你不需要指示器并且希望文字显示在SeekBar的顶部, 请看另外一个[SeekBar库](https://github.com/warkiz/TickSeekBar)。  [  English.md ](https://github.com/warkiz/IndicatorSeekBar/blob/master/README.md)
-
+此项目fork [自](https://github.com/warkiz/IndicatorSeekBar) 这是一个安卓自定义SeekBar库。 另外, 如果你不需要指示器并且希望文字显示在SeekBar的顶部, 请看另外一个[SeekBar库](https://github.com/warkiz/TickSeekBar)。  [  English.md ](https://github.com/warkiz/IndicatorSeekBar/blob/master/README.md)
 
 ## 预览
 
@@ -28,7 +25,7 @@
 ## 初始化
 
 ```gradle
-implementation 'com.github.warkiz.widget:indicatorseekbar:2.1.2'
+implementation 'com.github.warkiz.widget:indicatorseekbar:v3.0.0'
 ```
 
 ## 使用
@@ -265,14 +262,6 @@ seekBar.setOnSeekChangeListener(new OnSeekChangeListener() {
 So happy to receive your donation or encouraging words , and I will post this on my [ thanks-lists ](https://github.com/warkiz/IndicatorSeekBar#Thanks-lists)
 , thanks.
 
-## 打赏([ 支付宝 ](https://github.com/warkiz/IndicatorSeekBar/blob/master/app/src/main/res/mipmap-xxhdpi/alipay.png?raw=true))([ 微信支付 ](https://github.com/warkiz/IndicatorSeekBar/blob/master/app/src/main/res/mipmap-xxhdpi/wechat_pay.png?raw=true))
-
-自从文档里公布了二维码，我收到国内的朋友的一些打赏，虽然金额不大，但是一些支持和鼓励的话语还是让我感到开心，非常感谢。
-
-感谢所有之前支持我的朋友。如果下次你要给我打赏，可以顺带写上你的github地址，我会在这里用[ 链接 ](https://github.com/warkiz/IndicatorSeekBar#Thanks-lists)贴出来，算是相互鼓励。
-
-<img src="https://github.com/warkiz/IndicatorSeekBar/blob/master/app/src/main/res/mipmap-xxhdpi/alipay.png?raw=true" /><img src="https://github.com/warkiz/IndicatorSeekBar/blob/master/app/src/main/res/mipmap-xxhdpi/wechat_pay.png?raw=true" />
-
 ## 联系我
 
 如果你对项目有疑问，欢迎通过下面的方式联系我:
@@ -282,13 +271,13 @@ So happy to receive your donation or encouraging words , and I will post this on
 ## 证书
 
 	Copyright (C) 2017 zhuangguangquan
-
+	
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-
+	
 	   http://www.apache.org/licenses/LICENSE-2.0
-
+	
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
