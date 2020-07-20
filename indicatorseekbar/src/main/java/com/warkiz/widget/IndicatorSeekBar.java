@@ -537,6 +537,7 @@ public class IndicatorSeekBar extends View {
             }
             //draw BG track
             mStockPaint.setColor(mBackgroundTrackColor);
+            mStockPaint.setStrokeCap(Paint.Cap.ROUND);
             if (mProgressTrackBitmap != null) {
                 //async progress drawable height
                 mStockPaint.setStrokeWidth(mProgressTrackBitmap.getHeight());
