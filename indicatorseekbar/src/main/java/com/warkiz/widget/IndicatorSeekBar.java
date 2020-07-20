@@ -7,10 +7,13 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -128,6 +131,8 @@ public class IndicatorSeekBar extends View {
     private int mProgressTrackSize;
     private int mBackgroundTrackColor;
     private int mProgressTrackColor;
+    private Drawable mProgressTrackDrawable;
+    private Bitmap mProgressTrackBitmap;//the drawable bitmap for track
     private int[] mSectionTrackColorArray;//save the color for each section tracks.
     private boolean mCustomTrackSectionColorResult;//true to confirm to custom the section track color
     //thumb
@@ -206,6 +211,7 @@ public class IndicatorSeekBar extends View {
         mProgressTrackSize = ta.getDimensionPixelSize(R.styleable.IndicatorSeekBar_isb_track_progress_size, builder.trackProgressSize);
         mBackgroundTrackColor = ta.getColor(R.styleable.IndicatorSeekBar_isb_track_background_color, builder.trackBackgroundColor);
         mProgressTrackColor = ta.getColor(R.styleable.IndicatorSeekBar_isb_track_progress_color, builder.trackProgressColor);
+        mProgressTrackDrawable = ta.getDrawable(R.styleable.IndicatorSeekBar_isb_track_progress_drawable);
         mTrackRoundedCorners = ta.getBoolean(R.styleable.IndicatorSeekBar_isb_track_rounded_corners, builder.trackRoundedCorners);
         //thumb
         mThumbSize = ta.getDimensionPixelSize(R.styleable.IndicatorSeekBar_isb_thumb_size, builder.thumbSize);
@@ -506,13 +512,38 @@ public class IndicatorSeekBar extends View {
                 }
             }
         } else {
-            //draw progress track
-            mStockPaint.setColor(mProgressTrackColor);
-            mStockPaint.setStrokeWidth(mProgressTrackSize);
-            canvas.drawLine(mProgressTrack.left, mProgressTrack.top, mProgressTrack.right, mProgressTrack.bottom, mStockPaint);
+            if (mProgressTrackDrawable != null) {
+                //draw progress drawable
+                if (mProgressTrackBitmap == null) {
+                    initProgressTrackBitmap();
+                }
+                Rect src = new Rect(0, 0, mProgressTrackBitmap.getWidth(), mProgressTrackBitmap.getHeight());
+                int top = getHeight() / 2 - mProgressTrackBitmap.getHeight() / 2;
+                Rect dst = new Rect((int) mProgressTrack.left,
+                        top,
+//                        (int) mBackgroundTrack.right, top+mProgressTrackBitmap.getHeight());
+                        (int) mBackgroundTrack.right, top + mProgressTrackBitmap.getHeight());
+//                canvas.clipRect()
+                canvas.save();
+                canvas.clipRect(0, top, mProgressTrack.right, top + mProgressTrackBitmap.getHeight());
+                canvas.drawBitmap(mProgressTrackBitmap, src, dst, mStockPaint);
+                canvas.restore();
+//                canvas.drawBitmap(mProgressTrackBitmap, mProgressTrack.left, mProgressTrack.top, mStockPaint);
+            } else {
+                //draw progress track
+                mStockPaint.setColor(mProgressTrackColor);
+                mStockPaint.setStrokeWidth(mProgressTrackSize);
+                canvas.drawLine(mProgressTrack.left, mProgressTrack.top, mProgressTrack.right, mProgressTrack.bottom, mStockPaint);
+            }
             //draw BG track
             mStockPaint.setColor(mBackgroundTrackColor);
-            mStockPaint.setStrokeWidth(mBackgroundTrackSize);
+            mStockPaint.setStrokeCap(Paint.Cap.ROUND);
+            if (mProgressTrackBitmap != null) {
+                //async progress drawable height
+                mStockPaint.setStrokeWidth(mProgressTrackBitmap.getHeight());
+            } else {
+                mStockPaint.setStrokeWidth(mBackgroundTrackSize);
+            }
             canvas.drawLine(mBackgroundTrack.left, mBackgroundTrack.top, mBackgroundTrack.right, mBackgroundTrack.bottom, mStockPaint);
         }
     }
@@ -1006,6 +1037,50 @@ public class IndicatorSeekBar extends View {
                 mTextsTypeface = defaultTypeface;
                 break;
         }
+    }
+
+    private void initProgressTrackBitmap() {
+        if (mProgressTrackDrawable == null) {
+            return;
+        }
+        if (mProgressTrackDrawable instanceof LayerDrawable) {
+            try {
+                LayerDrawable layerDrawable = (LayerDrawable) mProgressTrackDrawable;
+//                int numberOfLayers = layerDrawable.getNumberOfLayers();
+                //android.R.id.progress
+                Drawable progressDrawable = layerDrawable.findDrawableByLayerId(android.R.id.progress);
+                if (progressDrawable != null) {
+                    mProgressTrackBitmap = getDrawBitmap(progressDrawable, false);
+                } else {
+                    throw new IllegalArgumentException("the progress track drawable is wrong!");
+                }
+            } catch (Exception e) {
+                mProgressTrackBitmap = getDrawBitmap(mProgressTrackDrawable, false);
+            }
+        } else {
+            try {
+//                int numberOfLayers = layerDrawable.getNumberOfLayers();
+                //android.R.id.progress
+                mProgressTrackBitmap = drawableToBitmap(mProgressTrackDrawable);
+            } catch (Exception e) {
+
+            }
+        }
+    }
+
+    /**
+     * Drawable转换成一个Bitmap
+     *
+     * @param drawable drawable对象
+     * @return
+     */
+    private Bitmap drawableToBitmap(Drawable drawable) {
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(),
+                drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+        drawable.draw(canvas);
+        return bitmap;
     }
 
     /**
