@@ -50,6 +50,7 @@ public class Builder {
     int trackBackgroundSize = 0;
     int trackBackgroundColor = Color.parseColor("#D7D7D7");
     int trackProgressSize = 0;
+    Drawable trackProgressDrawable = null;
     int trackProgressColor = Color.parseColor("#FF4081");
     boolean trackRoundedCorners = false;
     //thumbText
@@ -321,6 +322,17 @@ public class Builder {
      */
     public Builder trackProgressSize(int trackProgressSize) {
         this.trackProgressSize = SizeUtils.dp2px(context, trackProgressSize);
+        return this;
+    }
+
+    /**
+     * set the seek bar's progress track's Stroke Width
+     *
+     * @param trackProgressDrawable the drawable for Progress.
+     * @return Builder
+     */
+    public Builder trackProgressDrawable( Drawable trackProgressDrawable) {
+        this.trackProgressDrawable = trackProgressDrawable;
         return this;
     }
 

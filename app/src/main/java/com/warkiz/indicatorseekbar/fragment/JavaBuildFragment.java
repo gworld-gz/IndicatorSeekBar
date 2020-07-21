@@ -13,7 +13,11 @@ import com.warkiz.indicatorseekbar.R;
 import com.warkiz.widget.IndicatorSeekBar;
 import com.warkiz.widget.IndicatorStayLayout;
 import com.warkiz.widget.IndicatorType;
+import com.warkiz.widget.OnSeekChangeListener;
+import com.warkiz.widget.SeekParams;
 import com.warkiz.widget.TickMarkType;
+
+import org.w3c.dom.Text;
 
 /**
  * created by zhuangguangquan on  2017/9/6
@@ -245,6 +249,67 @@ public class JavaBuildFragment extends BaseFragment {
 
         TextView textView8 = getTextView();
         content.addView(textView8);
+
+
+
+        TextView textView9 = getTextView();
+        textView9.setText("9.custom attr");
+        content.addView(textView9);
+
+
+        final TextView topView = new TextView(getContext());
+        topView.setPadding(50,50,50,50);
+        topView.setTextColor(Color.BLUE);
+        topView.setBackgroundColor(Color.YELLOW);
+        IndicatorSeekBar customAttrSeekBar = IndicatorSeekBar
+                .with(getContext())
+                .max(100)
+                .progress(50)
+                .thumbSize(36)
+                .trackProgressSize(10)
+                .trackBackgroundSize(10)
+                .trackProgressDrawable(getResources().getDrawable(R.mipmap
+                        .custom_progress_icon))
+                .thumbDrawable(getResources().getDrawable(R.mipmap
+                        .ic_launcher))
+//                .showTickMarksType(TickMarkType.OVAL)
+//                .tickMarksColor(getResources().getColorStateList(R.color.selector_tick_marks_color, null))
+//                .tickTextsArray(array_ends)
+//                .showTickTexts(true)
+//                .showIndicatorType(IndicatorType.CIRCULAR_BUBBLE)
+//                .tickTextsColorStateList(getResources().getColorStateList(R.color.selector_tick_texts_3_color, null))
+//                .indicatorColor(getResources().getColor(R.color.color_blue, null))
+//                .indicatorTextColor(Color.
+//                ("#ffffff"))
+//                .thumbColor(Color.parseColor("#ff0000"))
+//                .trackProgressColor(getResources().getColor(R.color.color_blue, null))
+//                .trackProgressSize(4)
+//                .trackBackgroundColor(getResources().getColor(R.color.color_pink, null))
+//                .trackBackgroundSize(2)
+                .indicatorTopContentView(topView)
+                .build();
+        customAttrSeekBar.setOnSeekChangeListener(new OnSeekChangeListener() {
+            @Override
+            public void onSeeking(SeekParams seekParams) {
+                topView.setText("progress:"+seekParams.progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(IndicatorSeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(IndicatorSeekBar seekBar) {
+
+            }
+        });
+
+//        IndicatorStayLayout customAttrLayout = new IndicatorStayLayout(getContext());
+//        customAttrLayout.attachTo(customAttrSeekBar);
+        content.addView(customAttrSeekBar);
+
+
     }
 
     @NonNull

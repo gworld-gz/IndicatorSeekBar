@@ -1565,6 +1565,7 @@ public class IndicatorSeekBar extends View {
         this.mProgressTrackSize = builder.trackProgressSize;
         this.mProgressTrackColor = builder.trackProgressColor;
         this.mTrackRoundedCorners = builder.trackRoundedCorners;
+        this.mProgressTrackDrawable = builder.trackProgressDrawable;
         //thumb
         this.mThumbSize = builder.thumbSize;
         this.mThumbDrawable = builder.thumbDrawable;
